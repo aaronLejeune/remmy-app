@@ -4,7 +4,9 @@ const ejs = require('ejs');
 const request = require('request');
 var cors = require('cors');
 
-const { google } = require('googleapis');
+const {
+  google
+} = require('googleapis');
 const env = require('./env.js');
 
 const oauth2Client = new google.auth.OAuth2(
@@ -22,6 +24,9 @@ app.set('view engine', 'html');
 app.set('views', path.join(__dirname, '/dist'));
 app.use(cors());
 
+app.use(express.static(path.join(__dirname, 'public'))); //  "public" off of current is root
+
+
 // Get photo's
 app.get('/images', async (req, res) => {
   if (!bearerToken) {
@@ -29,7 +34,7 @@ app.get('/images', async (req, res) => {
     return res.json({
       error: 'Please login first (browse to /login)',
     });
-    
+
   }
 
   //LIST ALL POHOTOS
@@ -69,7 +74,7 @@ app.get('/images', async (req, res) => {
     });
   });*/
 
-    // DISPLAY ALBUM WITH CONTENT
+  // DISPLAY ALBUM WITH CONTENT
   request({
     method: 'POST',
     url: 'https://photoslibrary.googleapis.com/v1/mediaItems:search',
@@ -110,7 +115,9 @@ app.get('/login', (req, res) => {
 
 // Get redirected from Google
 app.get('/redirect', async (req, res) => {
-  const { tokens } = await oauth2Client.getToken(req.query.code);
+  const {
+    tokens
+  } = await oauth2Client.getToken(req.query.code);
   oauth2Client.setCredentials(tokens);
   console.log('tokens:', tokens);
 

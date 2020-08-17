@@ -34,7 +34,7 @@
 		},
 		methods: {
 			getImages() {
-				axios.get('http://localhost:4000/images')
+				axios.get('/images')
 					.then((response) => {
 						this.showError = false;
 						this.fetch = response.data.data
