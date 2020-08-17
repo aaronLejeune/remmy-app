@@ -24,7 +24,7 @@ app.set('view engine', 'html');
 app.set('views', path.join(__dirname, '/dist'));
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, 'public'))); //  "public" off of current is root
+app.use(express.static(path.join(__dirname, 'dist'))); //  "public" off of current is root
 
 
 // Get photo's
